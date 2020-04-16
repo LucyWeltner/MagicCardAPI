@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_181535) do
+ActiveRecord::Schema.define(version: 2020_04_16_165746) do
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.string "image_url"
-    t.string "art_url"
-    t.text "flavor_text"
     t.string "rarity"
-    t.integer "cost"
+    t.string "cost"
     t.string "creature_type"
     t.string "set"
     t.datetime "created_at", precision: 6, null: false
