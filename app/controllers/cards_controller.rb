@@ -1,3 +1,5 @@
+require 'open-uri'
+require 'json'
 class CardsController < ApplicationController
 	def index
 		cards = Card.all
@@ -20,6 +22,15 @@ class CardsController < ApplicationController
 		end
 		render json: packs 
 	end 
+
+	def random
+		cards = open('https://api.scryfall.com/cards/search?order=cmc&q=e:war+-t:land').read
+		cards = JSON.parse(cards)
+		cards = cards["data"].map{|card|
+			{id: card["id"], name: card["name"], rarity: card["rarity"], cost: card["mana_cost"], set: card["set_name"], creature_type: card["type_line"], image_url: card["image_uris"]["normal"]}
+		}
+		render json: cards
+	end
 
 	private
 		def make_pack(cards) 
