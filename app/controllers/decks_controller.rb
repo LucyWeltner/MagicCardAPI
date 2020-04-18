@@ -1,8 +1,15 @@
 class DecksController < ApplicationController 
 	def index
 		decks = Deck.all 
-		decks = decks.map{|deck| {name: deck.name, comments: deck.comments, cards: deck.cards}}
+		decks = decks.map{|deck| {id: deck.id, name: deck.name, comments: deck.comments, cards: deck.cards}}
 		render json: decks
+	end
+
+	def show
+		deck = Deck.all.find_by_id(params[:id])
+		if deck
+			render json: {id: deck.id, name: deck.name, comments: deck.comments, cards: deck.cards}
+		end
 	end
 
 	def create

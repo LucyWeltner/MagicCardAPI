@@ -23,12 +23,6 @@ class CardsController < ApplicationController
 		render json: packs 
 	end 
 
-	def decks
-		decks = Deck.all 
-		decks = decks.map{|deck| {name: deck.name, comments: deck.comments, cards: deck.cards}}
-		render json: decks
-	end
-
 	# def spark
 	# 	cards = open('https://api.scryfall.com/cards/search?order=cmc&q=e:war+-t:land').read
 	# 	cards = JSON.parse(cards)
