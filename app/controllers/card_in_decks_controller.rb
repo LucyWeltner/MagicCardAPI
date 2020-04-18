@@ -13,7 +13,7 @@ class CardInDecksController < ApplicationController
 		render json: {card_id: card_in_deck.card_id, name: card.name, set: card.set, deck_id: deck.id, deck_name: deck.name}
 	end
 
-	def delete 
+	def destroy
 		card_in_deck = CardInDeck.find_by({card_id: params[:id], deck_id: params[:deck_id]})
 		card_in_deck.delete()
 	end
