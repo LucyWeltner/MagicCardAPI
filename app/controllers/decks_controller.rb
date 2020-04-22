@@ -1,3 +1,4 @@
+require 'pry'
 class DecksController < ApplicationController 
 	def index
 		decks = Deck.all 
@@ -13,9 +14,9 @@ class DecksController < ApplicationController
 	end
 
 	def create
-		deck = Deck.create(params.permit(:name, :comments, :cards))
-		puts params[:cards]
-		params[:cards].each{|card| CardInDeck.create(card_id: card["id"], deck_id: deck.id)}
+		ok_params = params.permit(:name, :comments, cards: [:id])
+		deck = Deck.create(name: ok_params[:name], comments: ok_params[:comments])
+		ok_params[:cards].each{|card| CardInDeck.create(card_id: card["id"], deck_id: deck.id)}
 		render json: {id: deck.id, name: deck.name, comments: deck.comments, cards: deck.cards}
 	end
 end
